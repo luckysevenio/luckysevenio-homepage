@@ -1,0 +1,101 @@
+{
+  "version": 2,
+  "cli": {
+    "defaultCollection": "@nrwl/next"
+  },
+  "defaultProject": "luckysevenio-homepage",
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "styled-components",
+        "linter": "eslint"
+      }
+    }
+  },
+  "projects": {
+    "luckysevenio-homepage": {
+      "root": "apps/luckysevenio-homepage",
+      "sourceRoot": "apps/luckysevenio-homepage",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "root": "apps/luckysevenio-homepage",
+            "outputPath": "dist/apps/luckysevenio-homepage"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "luckysevenio-homepage:build",
+            "dev": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "luckysevenio-homepage:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "executor": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "luckysevenio-homepage:build:production"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/luckysevenio-homepage"],
+          "options": {
+            "jestConfig": "apps/luckysevenio-homepage/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/luckysevenio-homepage/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        }
+      }
+    },
+    "luckysevenio-homepage-e2e": {
+      "root": "apps/luckysevenio-homepage-e2e",
+      "sourceRoot": "apps/luckysevenio-homepage-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/luckysevenio-homepage-e2e/cypress.json",
+            "tsConfig": "apps/luckysevenio-homepage-e2e/tsconfig.e2e.json",
+            "devServerTarget": "luckysevenio-homepage:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "luckysevenio-homepage:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/luckysevenio-homepage-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  }
+}
